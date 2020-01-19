@@ -68,8 +68,19 @@ private native boolean isInterrupted(boolean ClearInterrupted);
 ```
 
 #### 3. interrupted()方法
-> 有个疑问：该方法为什么是static的，或者或isInterrupted()方法为什么不是static的
+> 有个疑问：该方法为什么是static的，或者或isInterrupted()方法为什么不是static的?
+> 
+> 答：刚方法用于检测当前线程是否被中断，并且清除中断标志。如果不是static的，则其他线程也可以清除该线程的中断标志，这和该方法的逻辑不符（该方法是清除当前线程的中断标志，而非其他线程的中断标志）。
+> 参考：[https://stackoverflow.com/questions/14132409/java-confusion-about-thread-interrupted](https://stackoverflow.com/questions/14132409/java-confusion-about-thread-interrupted)
+
 ```java
+/**
+* Tests whether the current thread has been interrupted. The interrupted status of the thread is cleared by this method. In other words, if this method were to be called twice in succession, the second call would return false (unless the current thread were interrupted again, after the first call had cleared its interrupted status and before the second call had examined it).
+  A thread interruption ignored because a thread was not alive at the time of the interrupt will be reflected by this method returning false.
+  
+  Returns:
+  true if the current thread has been interrupted; false otherwise.
+*/
 public static boolean interrupted() {
     return currentThread().isInterrupted(true);
 }
