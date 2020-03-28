@@ -1,0 +1,40 @@
+mysql版本：5.7.23
+建库语句：《建库语句.sql》
+预先插入的记录：《预先插入数据.sql》
+
+
+提前检查：确保数据库的事务隔离级别是repeatable read
+
+
+复现步骤：
+事务1							事务2
+begin;
+								begin;
+执行insert sql
+								执行insert sql
+执行update sql
+								执行update sql
+
+insert sql：
+insert ignore into  t_schedule_screening(third_id,third_from,seq_no,seat_total_number,seat_remaining_number) values('13579','maoyan','202001140377709',116,111);
+
+update sql：
+update t_schedule_screening set seat_total_number=116 , seat_remaining_number=111 where third_id='13579' and third_from='maoyan' and seq_no='202001140377709';
+
+
+附1：导出数据库及建表语句的方法（不会导出表里的数据）
+mysqldump -h  10.41.57.35 -P 3594 -usongjie02 -pMANyou2017@ -d --skip-lock-tables --set-gtid-purged=OFF --databases cmovie_info > cmovie_info.sql;
+
+附2：如何查看innodb的死锁日志
+show engine innodb status\G;
+
+附3：通过docker创建mysql数据库
+1、下载镜像
+docker pull mysql:5.7.23
+2、启动容器
+docker run --name mysql5.7.23 -p 3308:3306 -p 33080:33060 -e MYSQL_ROOT_PASSWORD=root -d mysql:5.7.23
+3、停止容器
+docker stop [containerId]
+4、重新启动容器
+docker start [containerId]
+注意：不要通过docker rm删除容器，这样会导致新建的数据库也被删除了。
