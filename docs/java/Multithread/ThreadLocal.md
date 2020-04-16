@@ -5,7 +5,8 @@
 线性探测，而非拉链法
 
 ## InheritableThreadLocal
-
+在`Thread`类的`init`方法里面对父线程的inheritableThreadLocals进行浅拷贝，这是实现子线程继承父线程threadlocalmap数据的关键。
+`InheritableThreadLocal`类继承了ThreadLocal，重写了部分方法。
 
 
 ## FastThreadLocal (Netty)
@@ -37,3 +38,4 @@ private final int index;
 
 
 ## TransmittableThreadLocal (Alibaba)
+
