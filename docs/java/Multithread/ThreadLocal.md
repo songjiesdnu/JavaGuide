@@ -8,6 +8,10 @@
 在`Thread`类的`init`方法里面对父线程的inheritableThreadLocals进行浅拷贝，这是实现子线程继承父线程threadlocalmap数据的关键。
 `InheritableThreadLocal`类继承了ThreadLocal，重写了部分方法。
 
+https://blog.csdn.net/v123411739/article/details/79117430
+> 当一个子线程创建的时候，会把父线程的inheritableThreadLocals属性的值继承到自己的inheritableThreadLocals属性。那么现在的问题是父线程的inheritableThreadLocals
+属性会有值吗？因为上文提到的ThreadLocal中，我们知道set()方法时，是把键值对放在threadLocals属性。这就要提到刚才说的InheritableThreadLocal重写的getMap()方法，因为InheritableThreadLocal类的set()和get()方法都是用的父类即ThreadLocal的方法，而从ThreadLocal的源码中我们知道，ThreadLocal的get()、set()、remove()方法都会先调用getMap()方法，而InheritableThreadLocal重写了该方法，因此此时返回的ThreadLocalMap为inheritableThreadLocals，所以我们知道了，当定义为InheritableThreadLocal时，操作的属性为inheritableThreadLocals而不是threadLocals。
+
 
 ## FastThreadLocal (Netty)
 1、 `InternalThreadLocalMap`初始化的时候，会生成一个长度为32的Object数组。
