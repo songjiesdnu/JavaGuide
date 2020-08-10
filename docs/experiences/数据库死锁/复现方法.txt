@@ -15,6 +15,9 @@ begin;
 执行update sql
 								执行update sql
 
+唯一索引：
+UNIQUE KEY `third_id_third_from_seq_no` (`third_id`,`third_from`,`seq_no`)
+
 insert sql：
 insert ignore into  t_schedule_screening(third_id,third_from,seq_no,seat_total_number,seat_remaining_number) values('13579','maoyan','202001140377709',116,111);
 
