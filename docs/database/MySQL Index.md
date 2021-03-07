@@ -103,6 +103,9 @@ ALTER TABLE `table_name` ADD FULLTEXT ( `column`)
 ALTER TABLE `table_name` ADD INDEX index_name ( `column1`, `column2`, `column3` )
 ```
 
+### 索引里的重复键值如何处理？
+如果B+树出现了两个值相等的情况，那么B+树不会改变原有结构，也不会在叶子结点里面增加一项，而是将这个重复值作为一个新的节点，并用原本B+树上的节点的指针指向它。
+参考：[B+树重复值问题](https://blog.csdn.net/AdijeShen/article/details/72870962)
 
 # 参考
 

@@ -1,0 +1,1 @@
+[详解 MySql InnoDB 中意向锁的作用](https://juejin.im/post/5b85124f5188253010326360)
